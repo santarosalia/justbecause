@@ -8,17 +8,17 @@ from tkinter import *
 import threading
 import sys
 import os
-
+from win10toast import ToastNotifier
 recentNo = ''
 team = ''
 status = ''
 processName = ''
 errorMsg = ''
-
+toaster = ToastNotifier()
 # USER INFORMATION
 UserId = 'dhkim@edentns.com'
 Password = '1q2w3e4r!'
-
+iconPath = os.path.join(os.path.dirname(__file__), 'chun.ico')
 # MAIL SERVER SETTING
 Host = 'pop.worksmobile.com'
 Port = '995'
@@ -66,19 +66,20 @@ def ConnectMailSvr():
         if(strBody.find('성공') != -1):
             status = '성공'
             errorMsg = ''
-        elif(strBody.find('확인요청') != -1):
+        elif(strBody.find('확인요청') != -1 or strBody.find('확인 요청') != -1):
             status = '확인요청'
-            errorMsg = strBody.split('본 이메일 및 첨부파일')[0]
+            errorMsg = strBody
         elif(strBody.find('오류') != -1):
             status = '오류'
-            errorMsg = strBody.split('본 이메일 및 첨부파일')[0]
+            errorMsg = strBody
         else:
             status = '완료'
-            errorMsg = strBody.split('본 이메일 및 첨부파일')[0]
+            errorMsg = strBody
         team = 'CJ 푸드빌'
         notionInsert()
         print(datetime.now())
         print('notion 작성 완료')
+        toaster.show_toast(strSubject, strBody, iconPath, 5)
 
 
 def notionInsert():
@@ -188,7 +189,7 @@ if __name__ == "__main__":
 
     tk = Tk()
     tk.title("메일 감지")
-    iconPath = os.path.join(os.path.dirname(__file__), 'chun.ico')
+
     tk.iconbitmap(iconPath)
 
     tk.minsize(300, 100)
@@ -207,4 +208,4 @@ if __name__ == "__main__":
     tk.mainloop()
 
 
-# pyinstaller --noconsole --onefile --icon=chun.ico --add-data="chun.ico;." testGuit.py
+# pyinstaller --noconsole --onefile --icon=chun.ico --add-data="chun.ico;." finalMailNotion.py
