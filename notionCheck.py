@@ -21,6 +21,14 @@ def notionCheck():
     databaseId = "5bea681aa7394a40832fe69514a9327c"
     url = "https://api.notion.com/v1/databases/"+databaseId+"/query"
     payload = {
+        "filter": {
+            "and": [
+                {
+                    "property": "title",
+
+                }
+            ]
+        }
     }
     headers = {
         "Accept": "application/json",

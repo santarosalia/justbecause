@@ -24,8 +24,8 @@ def mouseDoubleClickName(name):
 
 
 def editText(ai, text):
+    auto.Control(searchDepth=5, AutomationId=ai).DoubleClick()
     auto.Control(searchDepth=5, AutomationId=ai).SendKeys(text)
-    auto.TextControl()
 
 
 def mouseClickLct(lct):
@@ -75,3 +75,6 @@ process.kill()
 print(datetime.datetime.now())
 print('DRM 해제 끝')
 sys.stdout.close()
+
+
+# pyinstaller --noconsole --onefile --icon=chun.ico --add-data="chun.ico;." finalDrmUnlock.py --version-file file_version_DRM.txt
