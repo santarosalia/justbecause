@@ -1,5 +1,4 @@
 from functools import partial
-import threading
 from tkinter import messagebox
 import pymysql
 from tkinter import *
