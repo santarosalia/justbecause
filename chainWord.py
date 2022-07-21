@@ -292,7 +292,7 @@ def test(e):
             else:
                 notice["text"] = "잘못 된 단어 입니다!"
                 sleep(1)
-                notice["text"] = notice["text"] + prevWord
+                notice["text"] = prevWord
                 print('잘못 된 단어')
                 print(prevWord)
 
